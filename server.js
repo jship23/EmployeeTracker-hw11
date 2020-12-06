@@ -122,13 +122,12 @@ function addEmployee(){
             name: "role",
             type: "input",
             message: "Please select the employee's role",
-            choices: employee_role
-            },
-            {
-            type: "input",
+        },
+        {
             name: "department",
+            type: "input",
             message: "Please select the employee's department",
-        choices: department    
+        },
         ).then(function(answer){
 
         })
