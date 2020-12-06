@@ -12,7 +12,7 @@ const connection = mysql.createConnection({
     //password
     password: "",
     //database name
-    database:"employee_db",
+    database:"employees_db",
 });
 
 //
@@ -24,6 +24,6 @@ connection.connect(function(err) {
 function runSearch() {
     inquirer
         .prommpt({
-            
+
         })
 }
