@@ -24,6 +24,52 @@ connection.connect(function(err) {
 function runSearch() {
     inquirer
         .prommpt({
+            name: "action",
+            type: "rawlist",
+            message: "What would you like to do?",
+            choices:[
+                "View all employees",
+                "View all employees by department",
+                "View all employees by role",
+                "Add Employee",
+                "Add Department",
+                "Add Role",
+                "Update Employee Role",
+                "Exit",
+            ]
+        }).then(function(answer){
+            switch (answer.action) {
+                case "View all employees":
+                    employeeSearch();
+                    break;
 
-        })
+                case "View all employees by department":
+                    departmentSearch();
+                    break;
+
+                case "View all employees by role":
+                    roleSearch();
+                    break;
+
+                case "Add Employee":
+                    addEmployee();
+                    break;
+
+                case "Add Department":
+                    addDepartment();
+                    break;
+                
+                case "Add Role":
+                    addRole();
+                    break;
+
+                case "Update Employee Role":
+                    updateRole();
+                    break;
+
+                case "Exit":
+                    connection.end();
+                    break;
+            }
+        });
 }
