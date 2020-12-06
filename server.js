@@ -18,10 +18,11 @@ const connection = mysql.createConnection({
 //
 connection.connect(function(err) {
     if (err) throw err;
-    runSearch();
+    startMenu();
+    console.log("Connected");
 });
 
-function runSearch() {
+function startMenu() {
     inquirer
         .prommpt({
             name: "action",
@@ -73,3 +74,86 @@ function runSearch() {
             }
         });
 }
+
+function employeeSearch(){
+    const query = "SELECT * FROM employee"
+    connection.query(query, function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        startMenu();
+
+        });
+};
+
+
+function departmentSearch(){
+    const query = "SELECT * FROM department"
+    connection.query(query, function(err, res){
+        if(err) throw err;
+        console.table(res);
+        startMenu();
+    });
+};
+
+
+function roleSearch(){
+    const query = "SELECT * FROM role"
+    connection.query(query, function(err, res){
+        if(err) throw err;
+        console.table(res);
+        startMenu();
+    });
+};
+
+
+function addEmployee(){
+    inquirer
+        .prompt({
+            name: "firstName",
+            type: "input",
+            message: "What is the employees first name?"
+        },
+        {
+            name:"lastName",
+            type: "input",
+            message: "What is the employees last name?"
+        },
+        {
+            name: "role",
+            type: "input",
+            message: "Please select the employee's role",
+            choices: employee_role
+            },
+            {
+            type: "input",
+            name: "department",
+            message: "Please select the employee's department",
+        choices: department    
+        ).then(function(answer){
+
+        })
+};
+
+
+function addDepartment(){
+    inquirer
+        .prompt({
+
+        });
+};
+
+
+function addRole(){
+    inquirer
+        .prompt({
+
+        });
+};
+
+
+function updateRole(){
+    inquirer
+        .prompt({
+
+        });
+};
