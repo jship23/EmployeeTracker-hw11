@@ -201,15 +201,46 @@ function addRole(){
 
 
 function updateRole(){
-    var allemp = [];
+    let allemp = [];
   connection.query("SELECT * FROM employee", function(err, answer) {
-    console.log(answer);
     for (let i = 0; i < answer.length; i++) {
-      var employeeString =
-        answer[i].id + " " + answer[i].firstname + " " + answer[i].lastname;
-      allemp.push(employeeString);
-    inquirer
-        .prompt({
+    let employeeString =
+        answer[i].id + " " + answer[i].first_name + " " + answer[i].last_name;
+        allemp.push(employeeString);
+    }
+   
 
-        });
+    inquirer
+      .prompt([
+        {
+          name: "updateEmpRole",
+          type: "list",
+          message: "select employee to update role",
+          choices: allemp
+        },
+        {
+          name: "newrole",
+          type: "list",
+          message: "select new role",
+          choices: ["manager", "employee"],
+        }
+      ])
+      .then(function(answer) {
+        console.log("about to update", answer);
+        const idToUpdate = {};
+        idToUpdate.employeeId = parseInt(answer.updateEmpRole.split(" ")[0]);
+        if (answer.newrole === "manager") {
+          idToUpdate.role_id = 1;
+        } else if (answer.newrole === "employee") {
+          idToUpdate.role_id = 2;
+        }
+        connection.query(
+          "UPDATE employee SET role_id = ? WHERE id = ?",
+          [idToUpdate.role_id, idToUpdate.employeeId],
+          function(err, data) {
+            startMenu();
+          }
+        );
+      });
+  });
 };
