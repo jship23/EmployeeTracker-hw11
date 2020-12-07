@@ -16,7 +16,7 @@ FOREIGN KEY (manager_id) REFERENCES employee(id)
 CREATE TABLE employeeRole (
 id INTEGER NOT NULL AUTO_INCREMENT,
 title VARCHAR (30),
-salary DECIMAL,
+salary DECIMAL(12,2),
 department_id INT,
 PRIMARY KEY (id),
 FOREIGN KEY (department_id) REFERENCES department(id)
@@ -24,6 +24,6 @@ FOREIGN KEY (department_id) REFERENCES department(id)
 
 CREATE TABLE department(
 id INTEGER NOT NULL AUTO_INCREMENT,
-name VARCHAR (30),
+department_name VARCHAR (30),
 PRIMARY KEY (id)
 );
