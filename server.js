@@ -201,6 +201,13 @@ function addRole(){
 
 
 function updateRole(){
+    var allemp = [];
+  connection.query("SELECT * FROM employee", function(err, answer) {
+    console.log(answer);
+    for (let i = 0; i < answer.length; i++) {
+      var employeeString =
+        answer[i].id + " " + answer[i].firstname + " " + answer[i].lastname;
+      allemp.push(employeeString);
     inquirer
         .prompt({
 
