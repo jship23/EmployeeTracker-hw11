@@ -1,6 +1,7 @@
 //require dependencies
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const consoleTable = require("console.table");
 
 //create connection
 const connection = mysql.createConnection({
@@ -76,7 +77,7 @@ function startMenu() {
 }
 
 function employeeSearch(){
-    const query = "SELECT * FROM employee"
+    var query = "SELECT * FROM employee"
     connection.query(query, function (err, res) {
         if (err) throw err;
         console.table(res);
@@ -87,7 +88,7 @@ function employeeSearch(){
 
 
 function departmentSearch(){
-    const query = "SELECT * FROM department"
+    var query = "SELECT * FROM department"
     connection.query(query, function(err, res){
         if(err) throw err;
         console.table(res);
@@ -97,7 +98,7 @@ function departmentSearch(){
 
 
 function roleSearch(){
-    const query = "SELECT * FROM role"
+    var query = "SELECT * FROM role"
     connection.query(query, function(err, res){
         if(err) throw err;
         console.table(res);
@@ -107,6 +108,7 @@ function roleSearch(){
 
 
 function addEmployee(){
+
     inquirer
         .prompt({
             name: "firstName",
@@ -121,15 +123,31 @@ function addEmployee(){
         {
             name: "role",
             type: "input",
-            message: "Please select the employee's role",
+            message: "What is the employee's role",
         },
         {
             name: "department",
             type: "input",
-            message: "Please select the employee's department",
+            message: "What is the employee's department?",
         },
-        ).then(function(answer){
-
+        ).then(function(answer) {
+            connection.query(
+                "INSERT INTO employee SET ?",
+                {
+                    first_name: answer.firstName,
+                    last_name: answer.lastName,
+                    employee_role: answer.role,
+                    employee_department: answer.deparment
+                },
+                function(err, answer) {
+                    if (err) {
+                     throw err;
+                    }
+                        
+                    console.table(answer);
+                }
+            );
+            startMenu();  
         })
 };
 
@@ -137,7 +155,23 @@ function addEmployee(){
 function addDepartment(){
     inquirer
         .prompt({
-
+            name:"addDept",
+            type: "input",
+            message: "What department would you like to add?"
+        }).then(function(answer){
+            connection.query(
+                "INSERT INTO department SET ?",
+                {
+                    name: answer.addDept
+                },
+                function(err, answer){
+                    if (err){
+                        throw err
+                    }
+                }
+            );
+                console.table(answer);
+                startMenu();
         });
 };
 
@@ -145,8 +179,24 @@ function addDepartment(){
 function addRole(){
     inquirer
         .prompt({
-
-        });
+            name: "addRole",
+            type: "input",
+            message: "What role would you like to add?"
+        }).then(function(answer){
+            connection.query(
+                "INSERT INTO role SET ?",
+                {
+                    name: answer.addRole
+                },
+                function (err, answer){
+                    if(err){
+                        throw err
+                    }
+                }
+            );
+            console.table(answer);
+            startMenu();
+        })
 };
 
 
