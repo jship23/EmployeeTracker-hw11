@@ -1,6 +1,6 @@
 USE employee_db;
 
-INSERT INTO employee(first_name, last_name, role_id, manager_id)
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ('Michael', 'Scott', 1, 1),
 ('Dwight', 'Schrute', 2, 2),
 ('Jim', 'Halpert', 3, 2),
@@ -28,7 +28,7 @@ INSERT INTO department(department_name)
 ('Temp'),
 ('Human Resources')
 
-INSERT INTO employee_role(title, deparment_id)
+INSERT INTO employeeRole(title, deparment_id)
 ('Regional Manager', 1),
 ('Assistant to the Regional Manager', 2),
 ('Sales Representative', 2),
@@ -40,10 +40,5 @@ INSERT INTO employee_role(title, deparment_id)
 ('Warehouse Foreman', 6),
 ('Temp', 7),
 ('HR Representative', 8),
-
-
-SELECT * FROM department;
-SELECT * FROM employee_role;
-SELECT * FROM employee;
 
 

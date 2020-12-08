@@ -5,7 +5,7 @@ const consoleTable = require("console.table");
 
 //create connection
 const connection = mysql.createConnection({
-    host: "local host",
+    host: "localhost",
     //port
     port: 3306,
     //username
@@ -20,12 +20,12 @@ const connection = mysql.createConnection({
 connection.connect(function(err) {
     if (err) throw err;
     startMenu();
-    console.log("Connected");
+    
 });
 
 function startMenu() {
     inquirer
-        .prommpt({
+        .prompt({
             name: "action",
             type: "rawlist",
             message: "What would you like to do?",
@@ -98,7 +98,7 @@ function departmentSearch(){
 
 
 function roleSearch(){
-    var query = "SELECT * FROM role"
+    var query = "SELECT * FROM employeeRole"
     connection.query(query, function(err, res){
         if(err) throw err;
         console.table(res);
@@ -202,7 +202,7 @@ function addRole(){
 
 function updateRole(){
     let allemp = [];
-  connection.query("SELECT * FROM employee", function(err, answer) {
+    connection.query("SELECT * FROM employee", function(err, answer) {
     for (let i = 0; i < answer.length; i++) {
     let employeeString =
         answer[i].id + " " + answer[i].first_name + " " + answer[i].last_name;
